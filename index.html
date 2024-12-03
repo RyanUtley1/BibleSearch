@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bible Word Search</title>
+</head>
+<body>
+    <h1>Bible Word Search</h1>
+    
+    <form method="POST">
+        <label for="translation">Select Translation:</label>
+        <select name="translation" id="translation">
+            {% for translation in translations %}
+                <option value="{{ translation }}" {% if translation == selected_translation %}selected{% endif %}>{{ translation }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="word">Search for a word:</label>
+        <input type="text" name="word" id="word" value="{{ word }}" required>
+        <button type="submit">Search</button>
+    </form>
+    
+    {% if word %}
+        <h2>Results for "{{ word }}"</h2>
+        <p>Total occurrences: {{ word_count }}</p>
+        
+        {% if word_count > 0 %}
+            <ul>
+                {% for verse in verses %}
+                    <li>{{ verse }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No matches found.</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
